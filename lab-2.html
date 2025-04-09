@@ -2220,7 +2220,7 @@ vertical-align: -.125em;
 <ol start="3" type="1">
 <li>Now that you’re versed in the grammar of graphics (e.g., <code>ggplot</code>), list the <em>aesthetics</em> used and which <em>variables</em> are mapped to each.</li>
 </ol>
-<p>Coloured and stacked by region.</p>
+<p>Coloured and stacked by region. % belief is x-axis.</p>
 <ol start="4" type="1">
 <li>What type of graph would you call this? Meaning, what <code>geom</code> would you use to produce this plot?</li>
 </ol>
@@ -2253,445 +2253,90 @@ vertical-align: -.125em;
 <ol start="6" type="1">
 <li>Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.</li>
 </ol>
-<!-- 1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus,  -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus&quot;</span> <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="st">&quot;0=Not assigned, 1=Africa,2=Africa,3=Africa,4=Africa,5=Africa,6=Americas,7=Americas,8=Americas,9=Asia,10=Asia,11=Asia,12=Asia,13=Middle East,14=Former Soviet Union,15=Europe,16=Europe,17=Europe,18=Asia&quot;</span> <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot;,&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_trim</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot;=&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] &quot;1&quot;             &quot;United States&quot;
-
-[[2]]
-[1] &quot;2&quot;     &quot;Egypt&quot;
-
-[[3]]
-[1] &quot;3&quot;       &quot;Morocco&quot;
-
-[[4]]
-[1] &quot;4&quot;       &quot;Lebanon&quot;
-
-[[5]]
-[1] &quot;5&quot;            &quot;Saudi Arabia&quot;
-
-[[6]]
-[1] &quot;6&quot;      &quot;Jordan&quot;
-
-[[7]]
-[1] &quot;8&quot;      &quot;Turkey&quot;
-
-[[8]]
-[1] &quot;9&quot;        &quot;Pakistan&quot;
-
-[[9]]
-[1] &quot;10&quot;        &quot;Indonesia&quot;
-
-[[10]]
-[1] &quot;11&quot;         &quot;Bangladesh&quot;
-
-[[11]]
-[1] &quot;12&quot;             &quot;United Kingdom&quot;
-
-[[12]]
-[1] &quot;13&quot;     &quot;France&quot;
-
-[[13]]
-[1] &quot;14&quot;      &quot;Germany&quot;
-
-[[14]]
-[1] &quot;15&quot;          &quot;Netherlands&quot;
-
-[[15]]
-[1] &quot;16&quot;      &quot;Belgium&quot;
-
-[[16]]
-[1] &quot;17&quot;    &quot;Spain&quot;
-
-[[17]]
-[1] &quot;18&quot;    &quot;Italy&quot;
-
-[[18]]
-[1] &quot;19&quot;     &quot;Poland&quot;
-
-[[19]]
-[1] &quot;20&quot;      &quot;Hungary&quot;
-
-[[20]]
-[1] &quot;21&quot;             &quot;Czech Republic&quot;
-
-[[21]]
-[1] &quot;22&quot;      &quot;Romania&quot;
-
-[[22]]
-[1] &quot;23&quot;     &quot;Sweden&quot;
-
-[[23]]
-[1] &quot;24&quot;     &quot;Greece&quot;
-
-[[24]]
-[1] &quot;25&quot;      &quot;Denmark&quot;
-
-[[25]]
-[1] &quot;26&quot;   &quot;Iran&quot;
-
-[[26]]
-[1] &quot;28&quot;        &quot;Singapore&quot;
-
-[[27]]
-[1] &quot;29&quot;    &quot;Japan&quot;
-
-[[28]]
-[1] &quot;30&quot;    &quot;China&quot;
-
-[[29]]
-[1] &quot;31&quot;    &quot;India&quot;
-
-[[30]]
-[1] &quot;32&quot;        &quot;Venezuela&quot;
-
-[[31]]
-[1] &quot;33&quot;     &quot;Brazil&quot;
-
-[[32]]
-[1] &quot;34&quot;     &quot;Mexico&quot;
-
-[[33]]
-[1] &quot;35&quot;      &quot;Nigeria&quot;
-
-[[34]]
-[1] &quot;36&quot;    &quot;Kenya&quot;
-
-[[35]]
-[1] &quot;37&quot;       &quot;Tanzania&quot;
-
-[[36]]
-[1] &quot;38&quot;     &quot;Israel&quot;
-
-[[37]]
-[1] &quot;39&quot;                      &quot;Palestinian Territories&quot;
-
-[[38]]
-[1] &quot;40&quot;    &quot;Ghana&quot;
-
-[[39]]
-[1] &quot;41&quot;     &quot;Uganda&quot;
-
-[[40]]
-[1] &quot;42&quot;    &quot;Benin&quot;
-
-[[41]]
-[1] &quot;43&quot;         &quot;Madagascar&quot;
-
-[[42]]
-[1] &quot;44&quot;     &quot;Malawi&quot;
-
-[[43]]
-[1] &quot;45&quot;           &quot;South Africa&quot;
-
-[[44]]
-[1] &quot;46&quot;     &quot;Canada&quot;
-
-[[45]]
-[1] &quot;47&quot;        &quot;Australia&quot;
-
-[[46]]
-[1] &quot;48&quot;          &quot;Philippines&quot;
-
-[[47]]
-[1] &quot;49&quot;        &quot;Sri Lanka&quot;
-
-[[48]]
-[1] &quot;50&quot;      &quot;Vietnam&quot;
-
-[[49]]
-[1] &quot;51&quot;       &quot;Thailand&quot;
-
-[[50]]
-[1] &quot;52&quot;       &quot;Cambodia&quot;
-
-[[51]]
-[1] &quot;53&quot;   &quot;Laos&quot;
-
-[[52]]
-[1] &quot;54&quot;      &quot;Myanmar&quot;
-
-[[53]]
-[1] &quot;55&quot;          &quot;New Zealand&quot;
-
-[[54]]
-[1] &quot;57&quot;       &quot;Botswana&quot;
-
-[[55]]
-[1] &quot;60&quot;       &quot;Ethiopia&quot;
-
-[[56]]
-[1] &quot;61&quot;   &quot;Mali&quot;
-
-[[57]]
-[1] &quot;62&quot;         &quot;Mauritania&quot;
-
-[[58]]
-[1] &quot;63&quot;         &quot;Mozambique&quot;
-
-[[59]]
-[1] &quot;64&quot;    &quot;Niger&quot;
-
-[[60]]
-[1] &quot;65&quot;     &quot;Rwanda&quot;
-
-[[61]]
-[1] &quot;66&quot;      &quot;Senegal&quot;
-
-[[62]]
-[1] &quot;67&quot;     &quot;Zambia&quot;
-
-[[63]]
-[1] &quot;68&quot;          &quot;South Korea&quot;
-
-[[64]]
-[1] &quot;69&quot;     &quot;Taiwan&quot;
-
-[[65]]
-[1] &quot;70&quot;          &quot;Afghanistan&quot;
-
-[[66]]
-[1] &quot;71&quot;      &quot;Belarus&quot;
-
-[[67]]
-[1] &quot;72&quot;      &quot;Georgia&quot;
-
-[[68]]
-[1] &quot;73&quot;         &quot;Kazakhstan&quot;
-
-[[69]]
-[1] &quot;74&quot;         &quot;Kyrgyzstan&quot;
-
-[[70]]
-[1] &quot;75&quot;      &quot;Moldova&quot;
-
-[[71]]
-[1] &quot;76&quot;     &quot;Russia&quot;
-
-[[72]]
-[1] &quot;77&quot;      &quot;Ukraine&quot;
-
-[[73]]
-[1] &quot;78&quot;           &quot;Burkina Faso&quot;
-
-[[74]]
-[1] &quot;79&quot;       &quot;Cameroon&quot;
-
-[[75]]
-[1] &quot;80&quot;           &quot;Sierra Leone&quot;
-
-[[76]]
-[1] &quot;81&quot;       &quot;Zimbabwe&quot;
-
-[[77]]
-[1] &quot;82&quot;         &quot;Costa Rica&quot;
-
-[[78]]
-[1] &quot;83&quot;      &quot;Albania&quot;
-
-[[79]]
-[1] &quot;84&quot;      &quot;Algeria&quot;
-
-[[80]]
-[1] &quot;87&quot;        &quot;Argentina&quot;
-
-[[81]]
-[1] &quot;88&quot;      &quot;Armenia&quot;
-
-[[82]]
-[1] &quot;89&quot;      &quot;Austria&quot;
-
-[[83]]
-[1] &quot;90&quot;         &quot;Azerbaijan&quot;
-
-[[84]]
-[1] &quot;96&quot;      &quot;Bolivia&quot;
-
-[[85]]
-[1] &quot;97&quot;                     &quot;Bosnia and Herzegovina&quot;
-
-[[86]]
-[1] &quot;99&quot;       &quot;Bulgaria&quot;
-
-[[87]]
-[1] &quot;100&quot;     &quot;Burundi&quot;
-
-[[88]]
-[1] &quot;103&quot;  &quot;Chad&quot;
-
-[[89]]
-[1] &quot;104&quot;   &quot;Chile&quot;
-
-[[90]]
-[1] &quot;105&quot;      &quot;Colombia&quot;
-
-[[91]]
-[1] &quot;106&quot;     &quot;Comoros&quot;
-
-[[92]]
-[1] &quot;108&quot;               &quot;Republic of Congo&quot;
-
-[[93]]
-[1] &quot;109&quot;     &quot;Croatia&quot;
-
-[[94]]
-[1] &quot;111&quot;    &quot;Cyprus&quot;
-
-[[95]]
-[1] &quot;114&quot;                &quot;Dominican Republic&quot;
-
-[[96]]
-[1] &quot;115&quot;     &quot;Ecuador&quot;
-
-[[97]]
-[1] &quot;116&quot;         &quot;El Salvador&quot;
-
-[[98]]
-[1] &quot;119&quot;     &quot;Estonia&quot;
-
-[[99]]
-[1] &quot;121&quot;     &quot;Finland&quot;
-
-[[100]]
-[1] &quot;122&quot;   &quot;Gabon&quot;
-
-[[101]]
-[1] &quot;124&quot;       &quot;Guatemala&quot;
-
-[[102]]
-[1] &quot;125&quot;    &quot;Guinea&quot;
-
-[[103]]
-[1] &quot;128&quot;   &quot;Haiti&quot;
-
-[[104]]
-[1] &quot;129&quot;      &quot;Honduras&quot;
-
-[[105]]
-[1] &quot;130&quot;     &quot;Iceland&quot;
-
-[[106]]
-[1] &quot;131&quot;  &quot;Iraq&quot;
-
-[[107]]
-[1] &quot;132&quot;     &quot;Ireland&quot;
-
-[[108]]
-[1] &quot;134&quot;         &quot;Ivory Coast&quot;
-
-[[109]]
-[1] &quot;137&quot;    &quot;Kuwait&quot;
-
-[[110]]
-[1] &quot;138&quot;    &quot;Latvia&quot;
-
-[[111]]
-[1] &quot;140&quot;     &quot;Liberia&quot;
-
-[[112]]
-[1] &quot;141&quot;   &quot;Libya&quot;
-
-[[113]]
-[1] &quot;143&quot;       &quot;Lithuania&quot;
-
-[[114]]
-[1] &quot;144&quot;        &quot;Luxembourg&quot;
-
-[[115]]
-[1] &quot;145&quot;       &quot;Macedonia&quot;
-
-[[116]]
-[1] &quot;146&quot;      &quot;Malaysia&quot;
-
-[[117]]
-[1] &quot;148&quot;   &quot;Malta&quot;
-
-[[118]]
-[1] &quot;150&quot;       &quot;Mauritius&quot;
-
-[[119]]
-[1] &quot;153&quot;      &quot;Mongolia&quot;
-
-[[120]]
-[1] &quot;154&quot;        &quot;Montenegro&quot;
-
-[[121]]
-[1] &quot;155&quot;     &quot;Namibia&quot;
-
-[[122]]
-[1] &quot;157&quot;   &quot;Nepal&quot;
-
-[[123]]
-[1] &quot;158&quot;       &quot;Nicaragua&quot;
-
-[[124]]
-[1] &quot;160&quot;    &quot;Norway&quot;
-
-[[125]]
-[1] &quot;163&quot;    &quot;Panama&quot;
-
-[[126]]
-[1] &quot;164&quot;      &quot;Paraguay&quot;
-
-[[127]]
-[1] &quot;165&quot;  &quot;Peru&quot;
-
-[[128]]
-[1] &quot;166&quot;      &quot;Portugal&quot;
-
-[[129]]
-[1] &quot;173&quot;    &quot;Serbia&quot;
-
-[[130]]
-[1] &quot;175&quot;      &quot;Slovakia&quot;
-
-[[131]]
-[1] &quot;176&quot;      &quot;Slovenia&quot;
-
-[[132]]
-[1] &quot;183&quot;      &quot;Eswatini&quot;
-
-[[133]]
-[1] &quot;184&quot;         &quot;Switzerland&quot;
-
-[[134]]
-[1] &quot;185&quot;        &quot;Tajikistan&quot;
-
-[[135]]
-[1] &quot;186&quot;        &quot;The Gambia&quot;
-
-[[136]]
-[1] &quot;187&quot;  &quot;Togo&quot;
-
-[[137]]
-[1] &quot;190&quot;     &quot;Tunisia&quot;
-
-[[138]]
-[1] &quot;191&quot;          &quot;Turkmenistan&quot;
-
-[[139]]
-[1] &quot;193&quot;                  &quot;United Arab Emirates&quot;
-
-[[140]]
-[1] &quot;194&quot;     &quot;Uruguay&quot;
-
-[[141]]
-[1] &quot;195&quot;        &quot;Uzbekistan&quot;
-
-[[142]]
-[1] &quot;197&quot;   &quot;Yemen&quot;
-
-[[143]]
-[1] &quot;198&quot;    &quot;Kosovo&quot;
-
-[[144]]
-[1] &quot;202&quot;             &quot;Northern Cyprus&quot;</code></pre>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(value, <span class="st">&quot;=&quot;</span>, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;Regions_Report&quot;</span>, <span class="st">&quot;Region&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Regions_Report =</span> <span class="fu">as.numeric</span>(Regions_Report)) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(df) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Regions_Report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+ℹ Please use `as_tibble()` instead.
+ℹ The signature and semantics have changed, see `?as_tibble`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Regions_Report)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="st">&quot;1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus&quot;</span> <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">&quot;,&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_trim</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(value, <span class="st">&quot;=&quot;</span>, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;WP5&quot;</span>, <span class="st">&quot;Country&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WP5 =</span> <span class="fu">as.numeric</span>(WP5)) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(df) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>WP5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(WP5)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghalves)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Taken from https://github.com/teunbrand/ggplot_tricks?tab=readme-ov-file#lets-begin</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>my_fill <span class="ot">&lt;-</span> <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">after_scale</span>(<span class="fu">alpha</span>(colour, <span class="fl">0.3</span>)))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A small nudge offset</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>offset <span class="ot">&lt;-</span> <span class="fl">0.025</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Q25) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">vaccine =</span> Q25 <span class="sc">&lt;</span> <span class="dv">3</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">c</span>(Country, Region), fct)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Region <span class="sc">!=</span> <span class="st">&quot;Not assigned&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country, Region) <span class="sc">|&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">percent =</span> <span class="fu">mean</span>(vaccine)) <span class="sc">|&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">fct_reorder</span>(Region, percent),</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> percent,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">colour =</span> Region,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!!</span>my_fill</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_half_violin</span>(<span class="at">side =</span> <span class="st">&quot;l&quot;</span>, <span class="at">trim =</span> <span class="cn">FALSE</span>, <span class="at">scale =</span> <span class="st">&quot;width&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_half_boxplot</span>(</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">side =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">coef =</span> <span class="dv">0</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">outliers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.3</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_half_dotplot</span>(</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackdir =</span> <span class="st">&quot;up&quot;</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">dotsize =</span> <span class="fl">0.75</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="fl">0.01</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>), <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Vaccine Belief by Region and Country&quot;</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>

@@ -107,59 +107,53 @@ df <- "1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan,
 
 ```{r}
 #| warning: false
+library(gghalves)
 # Taken from https://github.com/teunbrand/ggplot_tricks?tab=readme-ov-file#lets-begin
 my_fill <- aes(fill = after_scale(alpha(colour, 0.3)))
-
 # A small nudge offset
 offset <- 0.025
-
-# We can pre-specify the mappings if we plan on recycling some
-up_nudge <- aes(
-  ymin = after_scale(y),
-  y = stage(class, after_stat = y + offset)
-)
-down_nudge <- aes(
-  ymax = after_scale(y),
-  y = stage(class, after_stat = y - offset)
-)
-
-update_geom_defaults("violin", list(xmin = NULL))
 
 df |>
   drop_na(Q25) |>
   mutate(
-    vaccine = Q25 > 3,
+    vaccine = Q25 < 3,
     across(c(Country, Region), fct)
   ) |>
   filter(Region != "Not assigned") |>
   group_by(Country, Region) |>
   summarize(percent = mean(vaccine)) |>
-  ggplot(aes(
-    y = fct_reorder(Region, percent),
-    x = percent,
-    colour = Region,
-    !!!my_fill
-  )) +
-  geom_violin(
-    aes(ymax = after_scale(y)),
-    position = position_nudge(y = -offset)
+  ggplot(
+    aes(
+      x = fct_reorder(Region, percent),
+      y = percent,
+      colour = Region,
+      !!!my_fill
+    )
   ) +
-  geom_boxplot(
-    aes(ymin = after_scale(y)),
-    position = position_nudge(y = offset),
+  geom_half_violin(side = "l", trim = FALSE, scale = "width") +
+  geom_half_boxplot(
+    side = "l",
+    coef = 0,
+    width = 0.4,
     outliers = FALSE,
-    alpha = 0.3,
-    coef = 0
+    alpha = 0.3
   ) +
-  geom_point(position = position_nudge(y = offset)) +
-  theme_bw() +
-  scale_x_continuous(labels = scales::label_percent()) +
+  geom_half_dotplot(
+    method = "histodot",
+    stackdir = "up",
+    dotsize = 0.75,
+    binwidth = 0.01
+  ) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  coord_flip() +
   labs(
     x = element_blank(),
     y = element_blank(),
     title = "Vaccine Belief by Region and Country"
   ) +
-  theme(legend.position = "none", )
+  theme_bw() +
+  theme(legend.position = "none")
+# TODO: fix axis labels
 ```
 
 # Part Two: Broad Visualization Improvement
