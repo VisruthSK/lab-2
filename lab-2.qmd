@@ -2,6 +2,7 @@
 title: "Lab 2"
 subtitle: "Advanced Data Visualization"
 editor: source
+embed-resources: true
 ---
 
 # Instructions
@@ -31,26 +32,29 @@ Gallup World Poll:
 story of this graph in words. That is, what is this graph telling you? What do
 you think the authors meant to convey with it?
 
-
+This graphic might be trying to say that certain regions' populations have more trust in vaccines; additionally, the graph might be trying to convey that some regions have a lot more variability, and attempts to highlight countries with extreme belief/disbelief within each region.
 
 2. List the variables that appear to be displayed in this visualization. 
 *Hint: Variables refer to columns in the data.*
 
-
+Country, region, vaccine efficacy belief (% population )
 
 3. Now that you're versed in the grammar of graphics (e.g., `ggplot`), list the *aesthetics* used and which *variables* are mapped to each.
 
-
+Coloured and stacked by region. % belief is x-axis.
 
 4. What type of graph would you call this? Meaning, what `geom` would you use
 to produce this plot?
 
-
+`geom_point()`
 
 5. Provide at least four problems or changes that would improve this graph. 
 *Please format your changes as bullet points!*
 
-
+* Drop the stacking
+* Facet across region across x-axis
+* Make it a dot plot or violin plot or such
+* Ditch the legend or ditch the region titles on the plot
 
 ## Improving the Bad Visualization
 
@@ -63,8 +67,15 @@ them in separately, but you may also just use one if it suffices.
 
 ```{r}
 #| label: read-in-wellcome-data
+#| warning: false
+library(tidyverse)
 
-
+df <- readxl::read_xlsx(
+  here::here(
+    "wgm2018-dataset-crosstabs-all-countries.xlsx"
+  ),
+  sheet = 2
+)
 ```
 
 6. Improve the visualization above by either re-creating it with the issues you
@@ -73,8 +84,82 @@ same story better.
 
 ```{r}
 #| label: new-and-improved-visualization
+df <- "0=Not assigned, 1=Africa,2=Africa,3=Africa,4=Africa,5=Africa,6=Americas,7=Americas,8=Americas,9=Asia,10=Asia,11=Asia,12=Asia,13=Middle East,14=Former Soviet Union,15=Europe,16=Europe,17=Europe,18=Asia" |>
+  str_split(",") |>
+  unlist() |>
+  str_trim() |>
+  as.tibble() |>
+  separate_wider_delim(value, "=", names = c("Regions_Report", "Region")) |>
+  mutate(Regions_Report = as.numeric(Regions_Report)) |>
+  right_join(df) |>
+  select(-Regions_Report)
 
+df <- "1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus" |>
+  str_split(",") |>
+  unlist() |>
+  str_trim() |>
+  as.tibble() |>
+  separate_wider_delim(value, "=", names = c("WP5", "Country")) |>
+  mutate(WP5 = as.numeric(WP5)) |>
+  right_join(df) |>
+  select(-WP5)
+```
 
+```{r}
+#| warning: false
+# Taken from https://github.com/teunbrand/ggplot_tricks?tab=readme-ov-file#lets-begin
+my_fill <- aes(fill = after_scale(alpha(colour, 0.3)))
+
+# A small nudge offset
+offset <- 0.025
+
+# We can pre-specify the mappings if we plan on recycling some
+up_nudge <- aes(
+  ymin = after_scale(y),
+  y = stage(class, after_stat = y + offset)
+)
+down_nudge <- aes(
+  ymax = after_scale(y),
+  y = stage(class, after_stat = y - offset)
+)
+
+update_geom_defaults("violin", list(xmin = NULL))
+
+df |>
+  drop_na(Q25) |>
+  mutate(
+    vaccine = Q25 > 3,
+    across(c(Country, Region), fct)
+  ) |>
+  filter(Region != "Not assigned") |>
+  group_by(Country, Region) |>
+  summarize(percent = mean(vaccine)) |>
+  ggplot(aes(
+    y = fct_reorder(Region, percent),
+    x = percent,
+    colour = Region,
+    !!!my_fill
+  )) +
+  geom_violin(
+    aes(ymax = after_scale(y)),
+    position = position_nudge(y = -offset)
+  ) +
+  geom_boxplot(
+    aes(ymin = after_scale(y)),
+    position = position_nudge(y = offset),
+    outliers = FALSE,
+    alpha = 0.3,
+    coef = 0
+  ) +
+  geom_point(position = position_nudge(y = offset)) +
+  theme_bw() +
+  scale_x_continuous(labels = scales::label_percent()) +
+  labs(
+    x = element_blank(),
+    y = element_blank(),
+    title = "Vaccine Belief by Region and Country"
+  ) +
+  theme(legend.position = "none", )
 ```
 
 # Part Two: Broad Visualization Improvement
@@ -114,7 +199,6 @@ aesthetics used and which variables are specified for each.
 ```{r}
 #| label: second-improved-visualization
 
-
 ```
 
 ## Third Data Visualization Improvement
@@ -147,6 +231,5 @@ aesthetics used and which variables are specified for each.
 
 ```{r}
 #| label: third-improved-visualization
-
 
 ```
