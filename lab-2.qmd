@@ -84,6 +84,7 @@ same story better.
 
 ```{r}
 #| label: new-and-improved-visualization
+#| warning: false
 df <- "0=Not assigned, 1=Africa,2=Africa,3=Africa,4=Africa,5=Africa,6=Americas,7=Americas,8=Americas,9=Asia,10=Asia,11=Asia,12=Asia,13=Middle East,14=Former Soviet Union,15=Europe,16=Europe,17=Europe,18=Asia" |>
   str_split(",") |>
   unlist() |>
@@ -141,7 +142,7 @@ df |>
   geom_half_dotplot(
     method = "histodot",
     stackdir = "up",
-    dotsize = 0.75,
+    dotsize = 1,
     binwidth = 0.01
   ) +
   scale_y_continuous(labels = scales::label_percent(), limits = c(0, 1)) +
@@ -183,48 +184,127 @@ Knowledge level is mapped to colour of the countries.
 
 10. What type of graph would you call this?
 
-It is a map.
+It is a choropleth map.
 
 11. List all of the problems or things you would improve about this graph.  
 
-I don't like the colours that much, and I think the scale should be the same across all maps to better reflect the absolute percentage.
+I don't like the colours that much, and I think the scale should be the same across all maps to better reflect the absolute percentage. Having the actual values available would be nice as well.
 
 12. Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
 
 ```{r}
-#| label: second-improved-visualization
+#| message: false
+#| warning: false
+library(leaflet)
+library(rnaturalearth)
+library(sf)
 
+science <- df |>
+  drop_na(Q1) |>
+  mutate(science = Q1 < 3, Country = fct(Country)) |>
+  group_by(Country) |>
+  summarize(percent = mean(science))
+
+country_data <- ne_countries(scale = "medium", returnclass = "sf") |>
+  mutate(
+    admin = case_when(
+      admin == "United States of America" ~ "United States",
+      admin == "Czechia" ~ "Czech Republic",
+      admin == "Palestine" ~ "Palestinian Territories",
+      admin == "Republic of the Congo" ~ "Republic of Congo",
+      admin == "Gambia" ~ "The Gambia",
+      admin == "United Republic of Tanzania" ~ "Tanzania",
+      admin == "North Macedonia" ~ "Macedonia",
+      admin == "Republic of Serbia" ~ "Serbia",
+      admin == "Republic of Serbia" ~ "Serbia",
+      TRUE ~ admin
+    )
+  ) |>
+  right_join(science, by = join_by(admin == Country)) |>
+  drop_na(scalerank)
+```
+
+```{r}
+#| label: second-improved-visualization
+country_colours <- colorNumeric(
+  palette = "Greens",
+  domain = country_data$percent,
+  na.color = "#bdbdbd"
+)
+
+country_labels <- glue::glue(
+  "<strong>{country_data$admin}</strong><br/>Percentage: {paste0(round(country_data$percent * 100, 1), '%')}"
+) |>
+  lapply(htmltools::HTML)
+
+country_data |>
+  leaflet() |>
+  addTiles(options = tileOptions(noWrap = TRUE)) |>
+  addPolygons(
+    fillColor = ~ country_colours(percent),
+    weight = 1,
+    opacity = 1,
+    color = "white",
+    dashArray = "3",
+    fillOpacity = 0.7,
+    label = country_labels,
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "#666",
+      dashArray = "",
+      fillOpacity = 0.9,
+      bringToFront = TRUE
+    ),
+    group = "Countries"
+  )
 ```
 
 ## Third Data Visualization Improvement
 
 **For this third plot, you must use one of the other `ggplot2` extension packages mentioned this week (e.g., `gganimate`, `plotly`, `patchwork`, `cowplot`).**
- 
+
 13. Select a data visualization in the report that you think could be improved. 
 Be sure to cite both the page number and figure title. Do your best to tell the
 story of this graph in words. That is, what is this graph telling you? What do
 you think the authors meant to convey with it?
 
-
+On page 112, Chart 5.4 is a Scatterplot exploring people’s perceptions of vaccine safety and vaccine effectiveness. This figure shows a correlation between proportion of people who think vaccines aren't effective and proportion of people who think vaccines aren't safe.
 
 14. List the variables that appear to be displayed in this visualization.
 
-
+Country, % vaccine safe, % vaccine effective.
 
 15. Now that you're versed in the grammar of graphics (ggplot), list the
 aesthetics used and which variables are specified for each.
 
-
+Countries are mapped to points, %safe goes to x, %effective goes to y.
 
 16. What type of graph would you call this?
 
-
+Scatterplot.
 
 17. List all of the problems or things you would improve about this graph.  
+
+I think an interactive plot would be more suitable as then one could hover over countries and see individual datums. Also, I'd probably colour by region because that seems like an interesting factor to layer atop of this.
 
 18. Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
 
 ```{r}
 #| label: third-improved-visualization
-
+library(plotly)
+p <- df |>
+  drop_na(Q25, Q26) |>
+  mutate(
+    safe = Q25 %in% c(4, 5),
+    effective = Q26 %in% c(4, 5),
+    across(c(Country, Region), fct)
+  ) |>
+  group_by(Country, Region) |>
+  summarize(safe = mean(safe), effective = mean(effective)) |>
+  ggplot(aes(x = safe, y = effective, color = Region)) +
+  geom_point() +
+  scale_x_continuous(labels = scales::label_percent()) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  theme_bw()
+ggplotly(p)
 ```
