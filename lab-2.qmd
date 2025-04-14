@@ -88,7 +88,7 @@ df <- "0=Not assigned, 1=Africa,2=Africa,3=Africa,4=Africa,5=Africa,6=Americas,7
   str_split(",") |>
   unlist() |>
   str_trim() |>
-  as.tibble() |>
+  as_tibble() |>
   separate_wider_delim(value, "=", names = c("Regions_Report", "Region")) |>
   mutate(Regions_Report = as.numeric(Regions_Report)) |>
   right_join(df) |>
@@ -98,7 +98,7 @@ df <- "1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan,
   str_split(",") |>
   unlist() |>
   str_trim() |>
-  as.tibble() |>
+  as_tibble() |>
   separate_wider_delim(value, "=", names = c("WP5", "Country")) |>
   mutate(WP5 = as.numeric(WP5)) |>
   right_join(df) |>
@@ -144,7 +144,7 @@ df |>
     dotsize = 0.75,
     binwidth = 0.01
   ) +
-  scale_y_continuous(labels = scales::label_percent()) +
+  scale_y_continuous(labels = scales::label_percent(), limits = c(0, 1)) +
   coord_flip() +
   labs(
     x = element_blank(),
@@ -153,7 +153,6 @@ df |>
   ) +
   theme_bw() +
   theme(legend.position = "none")
-# TODO: fix axis labels
 ```
 
 # Part Two: Broad Visualization Improvement
@@ -171,22 +170,24 @@ Be sure to cite both the page number and figure title. Do your best to tell the
 story of this graph in words. That is, what is this graph telling you? What do
 you think the authors meant to convey with it?
 
-
+From page 27, Chart 2.3: Map of perceived knowledge about science by country. The graph seems to be trying to show which countries have the populations which think of themselves as the most educated--it is also probably more focused on region as opposed to individual countries.
 
 8. List the variables that appear to be displayed in this visualization.
 
-
+Country, knowledge level.
 
 9. Now that you're versed in the grammar of graphics (ggplot), list the
 aesthetics used and which variables are specified for each.
 
-
+Knowledge level is mapped to colour of the countries.
 
 10. What type of graph would you call this?
 
-
+It is a map.
 
 11. List all of the problems or things you would improve about this graph.  
+
+I don't like the colours that much, and I think the scale should be the same across all maps to better reflect the absolute percentage.
 
 12. Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
 
