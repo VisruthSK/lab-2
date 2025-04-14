@@ -3,6 +3,7 @@ title: "Lab 2"
 subtitle: "Advanced Data Visualization"
 editor: source
 embed-resources: true
+code-fold: true
 ---
 
 # Instructions
@@ -291,7 +292,9 @@ I think an interactive plot would be more suitable as then one could hover over 
 
 ```{r}
 #| label: third-improved-visualization
+#| warning: false
 library(plotly)
+
 p <- df |>
   drop_na(Q25, Q26) |>
   mutate(
@@ -300,11 +303,34 @@ p <- df |>
     across(c(Country, Region), fct)
   ) |>
   group_by(Country, Region) |>
-  summarize(safe = mean(safe), effective = mean(effective)) |>
-  ggplot(aes(x = safe, y = effective, color = Region)) +
-  geom_point() +
+  summarize(
+    safe = mean(safe),
+    effective = mean(effective),
+    .groups = "drop"
+  ) |>
+  ggplot(aes(
+    x = safe,
+    y = effective
+  )) +
+  geom_point(aes(
+    text = glue::glue(
+      "Country: {Country}<br>",
+      "Region: {Region}<br>",
+      "Safe: {scales::percent(safe, accuracy = 0.01)}<br>",
+      "Effective: {scales::percent(effective, accuracy = 0.01)}"
+    ),
+    color = Region
+  )) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.5) +
+  labs(
+    x = "Disagree on Safety",
+    y = "Disagree on Efficacy",
+    title = "Positive Relation Between Disbelief in Vaccine Safety and Efficacy"
+  ) +
   scale_x_continuous(labels = scales::label_percent()) +
   scale_y_continuous(labels = scales::label_percent()) +
-  theme_bw()
-ggplotly(p)
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggplotly(p, tooltip = "text")
 ```
