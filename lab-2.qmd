@@ -3,7 +3,6 @@ title: "Lab 2"
 subtitle: "Advanced Data Visualization"
 editor: source
 embed-resources: true
-code-fold: true
 ---
 
 # Instructions
@@ -227,6 +226,7 @@ country_data <- ne_countries(scale = "medium", returnclass = "sf") |>
 
 ```{r}
 #| label: second-improved-visualization
+use("htmltools", c("HTML", "tags"))
 country_colours <- colorNumeric(
   palette = "Greens",
   domain = country_data$percent,
@@ -236,7 +236,7 @@ country_colours <- colorNumeric(
 country_labels <- glue::glue(
   "<strong>{country_data$admin}</strong><br/>Percentage: {paste0(round(country_data$percent * 100, 1), '%')}"
 ) |>
-  lapply(htmltools::HTML)
+  lapply(HTML)
 
 country_data |>
   leaflet() |>
@@ -257,6 +257,19 @@ country_data |>
       bringToFront = TRUE
     ),
     group = "Countries"
+  ) |>
+  addControl(
+    html = tags$div(
+      tags$h4(
+        style = "margin-bottom: 2px; margin-top: 2px; text-align:center;",
+        "Perceived Science Knowledge per Country ('a lot' or 'some')"
+      ),
+      tags$p(
+        style = "font-size: 0.7em; margin-bottom: 2px; margin-top: 0px; text-align:center;",
+        "How much do you, personally, know about science? Do you know a lot, some, not much, or nothing at all?"
+      )
+    ),
+    position = "topright"
   )
 ```
 
@@ -316,8 +329,8 @@ p <- df |>
     text = glue::glue(
       "Country: {Country}<br>",
       "Region: {Region}<br>",
-      "Safe: {scales::percent(safe, accuracy = 0.01)}<br>",
-      "Effective: {scales::percent(effective, accuracy = 0.01)}"
+      "Safe: {scales::percent(safe, accuracy = 1)}<br>",
+      "Effective: {scales::percent(effective, accuracy = 1)}"
     ),
     color = Region
   )) +
@@ -329,8 +342,7 @@ p <- df |>
   ) +
   scale_x_continuous(labels = scales::label_percent()) +
   scale_y_continuous(labels = scales::label_percent()) +
-  theme_bw() +
-  theme(legend.position = "none")
+  theme_bw()
 
 ggplotly(p, tooltip = "text")
 ```
